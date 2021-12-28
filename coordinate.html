@@ -4,8 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>좌표 실습</title>
+    <title>윈도우 스크롤링</title>
     <style>
+        ul{
+            position: fixed;
+            top: 5px;
+            right: 10px;
+            display: flex;
+            justify-content: flex-end;
+            margin: 0;
+        }
+        ul li{
+            list-style: none;
+            margin-left: 10px;
+        }
         div{
             width: 200px;
             height: 200px;
@@ -19,6 +31,17 @@
     </style>
 </head>
 <body>
+    <ul>
+        <li>
+            <button class="by100">Scroll by 100px(y)</button>
+        </li>
+        <li>
+            <button class="to100">Scroll to 100px(y)</button>
+        </li>
+        <li>
+            <button class="intoGreen">Scroll into green</button>
+        </li>
+    </ul>
     <div></div>
     <div></div>
     <div></div>
@@ -32,13 +55,29 @@
 
     <script>
         const greenBox = document.querySelector(".green");
+        const by100 = document.querySelector(".by100");
+        const to100 = document.querySelector(".to100");
+        const intoGreen = document.querySelector(".intoGreen");
 
         greenBox.addEventListener("click", e=>{
             const rect = greenBox.getBoundingClientRect();
             console.log(rect);
             console.log(`page : ${e.pageX}, ${e.pageY}`);
             console.log(`client : ${e.clientX}, ${e.clientY}`);
-        })
+        });
+
+        by100.addEventListener("click", ()=>{
+            const currentY = window.scrollY;
+            window.scrollTo(0, currentY + 100)
+        });
+        to100.addEventListener("click", ()=>{
+            window.scrollTo(0, 100)
+        });
+        intoGreen.addEventListener("click", ()=>{
+            const currentY = window.scrollY;
+            const greenY = greenBox.getBoundingClientRect().y + currentY;
+            window.scrollTo(0, greenY);
+        });
     </script>
 </body>
 </html>

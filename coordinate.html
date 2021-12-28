@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>좌표 실습</title>
+    <style>
+        div{
+            width: 200px;
+            height: 200px;
+            border-radius: 10px;
+            background: lightpink;
+            margin-bottom: 10px;
+        }
+        div.green{
+            background: lightgreen;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div class="green"></div>
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+
+    <script>
+        const greenBox = document.querySelector(".green");
+
+        greenBox.addEventListener("click", e=>{
+            const rect = greenBox.getBoundingClientRect();
+            console.log(rect);
+            console.log(`page : ${e.pageX}, ${e.pageY}`);
+            console.log(`client : ${e.clientX}, ${e.clientY}`);
+        })
+    </script>
+</body>
+</html>

@@ -6,17 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>윈도우 스크롤링</title>
     <style>
-        ul{
+        aside{
             position: fixed;
             top: 5px;
             right: 10px;
-            display: flex;
-            justify-content: flex-end;
-            margin: 0;
-        }
-        ul li{
-            list-style: none;
-            margin-left: 10px;
         }
         div{
             width: 200px;
@@ -31,17 +24,11 @@
     </style>
 </head>
 <body>
-    <ul>
-        <li>
-            <button class="by100">Scroll by 100px(y)</button>
-        </li>
-        <li>
-            <button class="to100">Scroll to 100px(y)</button>
-        </li>
-        <li>
-            <button class="intoGreen">Scroll into green</button>
-        </li>
-    </ul>
+    <aside>
+        <button class="by100">Scroll by 100px(y)</button>
+        <button class="to100">Scroll to 100px(y)</button>
+        <button class="intoGreen">Scroll into green</button>
+    </aside>
     <div></div>
     <div></div>
     <div></div>
@@ -67,16 +54,13 @@
         });
 
         by100.addEventListener("click", ()=>{
-            const currentY = window.scrollY;
-            window.scrollTo(0, currentY + 100)
+            window.scrollBy(0, 100)
         });
         to100.addEventListener("click", ()=>{
             window.scrollTo(0, 100)
         });
         intoGreen.addEventListener("click", ()=>{
-            const currentY = window.scrollY;
-            const greenY = greenBox.getBoundingClientRect().y + currentY;
-            window.scrollTo(0, greenY);
+            greenBox.scrollIntoView()
         });
     </script>
 </body>

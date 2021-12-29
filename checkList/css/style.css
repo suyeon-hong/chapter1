@@ -124,7 +124,7 @@ body{
     padding: 10px;
     font: 300 20px/1 'Poor Story';
 }
-input:focus{
+input:focus, button:focus{
     outline: none;
 }
 .wrap .btnAdd{

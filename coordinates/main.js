@@ -3,12 +3,20 @@ const vertical = document.querySelector(".vertical");
 const target = document.querySelector(".target");
 const tag = document.querySelector(".tag");
 
-window.addEventListener("mousemove", e=>{
-    horizon.style.top = `${e.clientY}px`;
-    vertical.style.left = `${e.clientX}px`;
-    target.style.top = `${e.clientY}px`;
-    target.style.left = `${e.clientX}px`;
-    tag.style.top = `${e.clientY}px`;
-    tag.style.left = `${e.clientX}px`;
-    tag.innerText = `${e.clientX}px, ${e.clientY}px`
+window.addEventListener("load", ()=>{
+    const targetRect = target.getBoundingClientRect();
+    const targetHalfWidth = targetRect.width / 2;
+    const targetHalfHeigth = targetRect.height / 2;
+
+    window.addEventListener("mousemove", e=>{
+        const x = e.clientX;
+        const y = e.clientY;
+    
+        horizon.style.transform = `translateY(${y}px)`;
+        vertical.style.transform = `translateX(${x}px)`;
+        target.style.transform = `translate(${x - targetHalfWidth}px, ${y - targetHalfHeigth}px)`;
+        tag.style.transform = `translate(${x}px, ${y}px)`;
+    
+        tag.innerText = `${e.clientX}px, ${e.clientY}px`
+    })
 })

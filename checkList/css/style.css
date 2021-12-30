@@ -16,33 +16,33 @@ body{
     padding: 5vw 20vw;
     background: #333;
 }
-.wrap{
+.list{
     width: 100%;
     height: 100%;
     background: #F1D1D1;
     padding: 30px;
     position: relative;
 }
-.wrap h1{
+header h1{
     font: 700 50px/1 'Dongle';
     color: #111;
     text-align: center;
     letter-spacing: 5px;
     margin-bottom: 30px;
 }
-.wrap ul{
+.items{
     width: 100%;
     height: 70%;
     overflow-y: scroll;
     border-top: 2px solid #111;
     border-bottom: 2px solid #111;
 }
-.wrap ul li{
+.item{
     padding: 20px 70px;
     border-bottom: 1px solid #333;
     position: relative;
 }
-.wrap ul li .checkbox{
+.item__check{
     display: block;
     width: 30px;
     height: 30px;
@@ -54,10 +54,10 @@ body{
     transform: translateY(-50%);
     cursor: pointer;
 }
-.checkbox.on::before, .checkbox.on::after{
+.item__check.on::before, .item__check.on::after{
     opacity: 1;
 }
-.checkbox::before, .checkbox::after{
+.item__check::before, .item__check::after{
     content: '';
     display: block;
     width: 25px;
@@ -68,25 +68,25 @@ body{
     top: 0;
     left: 0;
 }
-.checkbox::before{
+.item__check::before{
     width: 15px;
     transform-origin: left center;
     transform: translate(4px, 8px) rotate(55deg);
 }
-.checkbox::after{
+.item__check::after{
     transform-origin: right center;
     transform: translateX(1px) rotate(-55deg);
 }
-.wrap ul li .list{
+.item__name{
     display: inline-block;
     font: 300 20px/1 'Poor Story';
     color: #111;
     position: relative;
 }
-.wrap ul li .list.on::after{
+.item__name.on::after{
     opacity: .7;
 }
-.wrap ul li .list::after{
+.item__name::after{
     content: '';
     display: block;
     width: 100%;
@@ -98,7 +98,7 @@ body{
     left: 0;
     transform: translateY(-50%);
 }
-.wrap ul li .btnDelete{
+.item__delete{
     display: block;
     width: 35px;
     height: 35px;
@@ -109,10 +109,10 @@ body{
     cursor: pointer;
     opacity: 0.7;
 }
-.wrap ul li .btnDelete:hover{
+.item__delete:hover{
     opacity: 1;
 }
-.wrap input{
+.footer__input{
     position: absolute;
     left: 3vw;
     bottom: 60px;
@@ -127,7 +127,7 @@ body{
 input:focus, button:focus{
     outline: none;
 }
-.wrap .btnAdd{
+.footer__btn{
     position: absolute;
     right: 3vw;
     bottom: 50px;
@@ -139,7 +139,7 @@ input:focus, button:focus{
     cursor: pointer;
     transition: .7s;
 }
-.btnAdd::before, .btnAdd::after{
+.footer__btn::before, .footer__btn::after{
     content: '';
     display: block;
     width: 50%;
@@ -147,9 +147,9 @@ input:focus, button:focus{
     background: #fff;
     margin-left: 25%;
 }
-.btnAdd::after{
+.footer__btn::after{
     transform: rotate(90deg);
 }
-.wrap .btnAdd:hover{
+.footer__btn:hover{
     background: #be7777;
 }

@@ -1,9 +1,13 @@
 const items = document.querySelector(".items");
+const form = document.querySelector(".new-form");
 const input = document.querySelector(".footer__input");
 const addBtn = document.querySelector(".footer__button");
 let i = 0;
 
-addBtn.addEventListener("click", createList);
+form.addEventListener("submit", e=>{
+    e.preventDefault();
+    createList();
+});
 
 items.addEventListener("click", e=>{
     const id = e.target.dataset.id;
@@ -21,10 +25,6 @@ items.addEventListener("click", e=>{
 
     if(e.target === btnDelete) item.remove();
 });
-
-window.addEventListener("keyup", e=>{
-    if (e.key == "Enter") createList();
-})
 
 function createList(){
     const value = input.value;

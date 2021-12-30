@@ -1,6 +1,6 @@
 const listBox = document.querySelector(".items");
 const userInput = document.querySelector(".footer__input");
-const btnAdd = document.querySelector(".footer__btn");
+const btnAdd = document.querySelector(".footer__button");
 
 // btnAdd버튼 클릭시 createList 함수 실행
 btnAdd.addEventListener("click", createList);
@@ -13,7 +13,7 @@ listBox.addEventListener("click", e=>{
 
     const checkbox = target.querySelector(".item__check");
     const list = target.querySelector(".item__name");
-    const btnDelete = target.querySelector(".item__delete");
+    const btnDelete = target.querySelector(".item__delete i");
 
     // checkbox클릭시 checkbox와 list에 클래스 on 추가
     if(e.target === checkbox){
@@ -42,7 +42,9 @@ function createList(){
     li.innerHTML = `
         <span class="item__check"></span>
         <p class="item__name">${value}</p>
-        <img src="img/icon_bin.png" class="item__delete"></img>
+        <button class="item__delete">
+            <i class="fas fa-trash-alt"></i>
+        </buttonsrc=>
     `;
     listBox.append(li);
 }

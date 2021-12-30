@@ -117,7 +117,7 @@ header h1{
     transform: translateY(-50%);
     font-size: 18px;
     color: #777;
-    transition: .5s;
+    transition: .3s;
 }
 .item__delete:hover{
     color: #be7777;
@@ -147,7 +147,7 @@ header h1{
     background: #be7777;
     font-size: 32px;
     color: #fff;
-    transition: .7s;
+    transition: .3s;
 }
 .footer__button:hover{
     transform: scale(1.1);

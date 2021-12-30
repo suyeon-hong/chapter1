@@ -22,7 +22,7 @@ items.addEventListener("click", e=>{
     if(e.target === btnDelete) item.remove();
 });
 
-window.addEventListener("keydown", e=>{
+window.addEventListener("keyup", e=>{
     if (e.key == "Enter") createList();
 })
 

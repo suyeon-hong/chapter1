@@ -6,11 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minigame</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://kit.fontawesome.com/0c5c47f3c6.js" crossorigin="anonymous"></script>
     <script src="js/main.js" defer></script>
 </head>
 <body>
-    <section>
-        
+    <header class="header">
+        <button class="btnStart">START</button>
+        <div class="timer">00 : 00</div>
+        <div class="number">10</div>
+    </header>
+    <section class="stage">
+        <img src="img/bug.png" alt="bug">
+        <img src="img/carrot.png" alt="carrot">
     </section>
+    <aside>
+        <h1>YOU WIN!</h1>
+        <button class="btnRestart">
+            <i class="fas fa-redo-alt"></i>
+        </button>
+    </aside>
 </body>
 </html>

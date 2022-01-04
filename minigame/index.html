@@ -10,16 +10,25 @@
     <script src="js/main.js" defer></script>
 </head>
 <body>
-    <header class="header">
-        <button class="btnStart">START</button>
-        <div class="timer"><span class="sec">00</span> : <span class="ms">00</span></div>
-        <div class="number">0</div>
-    </header>
-    <section class="stage">
+    <section class="game">
+        <header class="game__header">
+            <button class="game__button">
+                <i class="fas fa-play"></i>
+            </button>
+            <div class="game__timer">
+                00:00
+            </div>
+            <div class="game__score">
+                10
+            </div>
+        </header>
+        <div class="game__field"></div>
     </section>
-    <audio src="sound/bg.mp3" class="sound_bg"></audio>
-    <audio src="sound/carrot_pull.mp3" class="sound_carrot"></audio>
-    <audio src="sound/bug_pull.mp3" class="sound_bug"></audio>
-    <audio src="sound/game_win.mp3" class="sound_win"></audio>
+    <section class="popup popup__hide">
+        <span class="popup__message">refresh?</span>
+        <button class="popup__refresh">
+            <i class="fas fa-redo"></i>
+        </button>
+    </section>
 </body>
 </html>

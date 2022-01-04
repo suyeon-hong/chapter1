@@ -134,5 +134,8 @@ function createPop(text){
 function restartGame(){
     remainCarrot = 10;
     enableClick = true;
-    startGame();
+    soundBg.play();
+    setTimer();
+    countCarrot();
+    displayImg();
 }

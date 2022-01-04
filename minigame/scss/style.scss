@@ -36,7 +36,7 @@ body{
         color: #fff;
         cursor: pointer;
         margin-bottom: 30px;
-        transition: .3s;
+        transition: background .3s;
 
         &:hover{
             background: salmon;
@@ -73,6 +73,7 @@ body{
         position: absolute;
         top: 20px;
         left: 20px;
+        cursor: pointer;
     }
 }
 aside{

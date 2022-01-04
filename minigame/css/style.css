@@ -34,6 +34,9 @@ body {
     transition: background .3s; }
     .header .btnStart:hover {
       background: salmon; }
+    .header .btnStart.on {
+      opacity: 0;
+      pointer-events: none; }
   .header .timer {
     width: 150px;
     height: 50px;

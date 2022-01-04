@@ -41,6 +41,10 @@ body{
         &:hover{
             background: salmon;
         }
+        &.on{
+            opacity: 0;
+            pointer-events: none;
+        }
     }
     .timer{
         width: 150px;

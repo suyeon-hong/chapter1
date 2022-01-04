@@ -1,3 +1,4 @@
+const body = document.querySelector("body");
 const btnStart = document.querySelector(".btnStart");
 const timer = document.querySelector(".timer");
 const sec = timer.querySelector(".sec");
@@ -12,12 +13,13 @@ let remainCarrot = 10;
 let enableClick = true;
 let timerSec;
 let timerMs;
-let seconds = 10;
 
-btnStart.addEventListener("click", startGame);
+btnStart.addEventListener("click", ()=>{
+    startGame();
+});
 
 function startGame(){
-    btnStart.style.opacity = 0;
+    btnStart.classList.add("on");
     soundBg.play();
     setTimer();
     countCarrot();
@@ -34,13 +36,13 @@ function startGame(){
                 countCarrot();
                 if(remainCarrot === 0){
                     gameover();
-                    // popup띄우기
+                    createPop("win");
                 }
             }
             if(target == "bug"){
                 soundBug.play();
                 gameover();
-                // 팝업띄우기
+                createPop("lost");
             }
         }
     })
@@ -48,6 +50,8 @@ function startGame(){
 
 function setTimer(){
     let millisec = 100;
+    let seconds = 10;
+
     sec.innerText = seconds;
     ms.innerText = millisec;
 
@@ -75,6 +79,8 @@ function countCarrot(){
 }
 
 function displayImg(){
+    stage.innerHTML = "";
+
     for(let i = remainCarrot; i>0; i--){
         let randomNum = Math.random()*1200;
         let randomNum2 = Math.random()*300;
@@ -102,4 +108,31 @@ function gameover(){
     clearInterval(timerMs);
     enableClick = false;
     soundBg.pause();
+}
+
+function createPop(text){
+    const aside = document.createElement("aside");
+    let tit;
+    (text == "win") ? tit = "YOU WIN" : tit = "YOU LOST";
+
+    aside.innerHTML = `
+        <h1>${tit}</h1>
+        <button class="btnRestart">
+            <i class="fas fa-redo-alt"></i>
+        </button>
+    `;
+    body.append(aside);
+    aside.addEventListener("click", e=>{
+        const target = e.target.closest("button");
+        if(!target) return;
+
+        aside.remove();
+        restartGame();
+    })
+}
+
+function restartGame(){
+    remainCarrot = 10;
+    enableClick = true;
+    startGame();
 }

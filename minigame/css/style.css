@@ -70,6 +70,10 @@ body {
   margin-top: 160px;
   position: relative; }
 
+.game__field img{
+  cursor: pointer;
+}
+
 .popup {
   margin: auto;
   width: 300px;
@@ -97,5 +101,3 @@ body {
   border-radius: 50%;
   background: wheat;
   font-size: 20px; }
-
-/*# sourceMappingURL=style.css.map */

@@ -6,15 +6,24 @@ const GAME_DURATION_SEC = 5;
 const gameBtn = document.querySelector(".game__button");
 const gameTimer = document.querySelector(".game__timer");
 const gameScore = document.querySelector(".game__score");
-const field = document.querySelector(".game__field");
-const fieldRect = field.getBoundingClientRect();
+const gameField = document.querySelector(".game__field");
+const fieldRect = gameField.getBoundingClientRect();
 
 const popup = document.querySelector(".popup");
 const popupMessage = document.querySelector(".popup__message");
 const refreshBtn = document.querySelector(".popup__refresh");
 
+const bgSound = new Audio('./sound/bg.mp3');
+const bugSound = new Audio('./sound/bug_pull.mp3');
+const carrotSound = new Audio('./sound/carrot_pull.mp3');
+const windSound = new Audio('./sound/game_win.mp3');
+const alertSound = new Audio('./sound/alert.wav');
+
 let started = false;
 let timer;
+let score;
+
+gameField.addEventListener("click", e => onGameField(e))
 
 refreshBtn.addEventListener("click", ()=>{
     gameBtn.style.visibility = "visible";
@@ -29,21 +38,58 @@ gameBtn.addEventListener("click", ()=>{
     }else{
         startGame();
     }
-    started = !started;
 });
 
+function onGameField(e){
+    if(!started) return;
+    if(e.target.matches(".carrot")){
+        e.target.remove();
+        playSound(carrotSound);
+        score++;
+        updateScoreText(score);
+        if(score == CARROT_COUNT){
+            finishGame("YOU WIN!");
+            playSound(windSound);
+        }
+    }else if(e.target.matches(".bug")){
+        finishGame("YOU LOST!")
+        playSound(bugSound);
+        playSound(alertSound);
+    }
+}
+
+function stopSound(sound){
+    sound.pause();
+}
+
+function playSound(sound){
+    sound.currentTime = 0;
+    sound.play();
+}
+
 function stopGame(){
-    showStartButton();
+    started = false;
     clearInterval(timer);
     hideGameButton();
     showPopup("REPLAY❓");
+    stopSound(bgSound);
 }
 
 function startGame(){
+    started = true;
     initGame();
     showStopButton();
     showTimerAndScore();
     startGameTimer();
+    playSound(bgSound);
+}
+
+function finishGame(text){
+    started = false;
+    clearInterval(timer);
+    hideGameButton();
+    showPopup(text);
+    stopSound(bgSound);
 }
 
 function hidePopup(){
@@ -51,24 +97,18 @@ function hidePopup(){
 }
 
 function showPopup(text){
-    popupMessage.innertext = text;
+    popupMessage.innerText = text;
     popup.classList.remove("popup__hide");
 }
 
-function showStartButton(){
-    const icon = document.querySelector(".fa-pause");
-    icon.classList.add("fa-play");
-    icon.classList.remove("fa-pause")
+function showStopButton(){
+    const icon = document.querySelector(".fas");
+    icon.classList.add("fa-pause");
+    icon.classList.remove("fa-play")
 }
 
 function hideGameButton(){
     gameBtn.style.visibility = "hidden";
-}
-
-function showStopButton(){
-    const icon = document.querySelector(".fa-play");
-    icon.classList.add("fa-pause");
-    icon.classList.remove("fa-play")
 }
 
 function showTimerAndScore(){
@@ -77,7 +117,8 @@ function showTimerAndScore(){
 }
 
 function initGame(){
-    field.innerHTML = "";
+    score = 0;
+    gameField.innerHTML = "";
     gameScore.innerText = CARROT_COUNT;
 
     addItem("carrot", CARROT_COUNT, "img/carrot.png");
@@ -100,7 +141,7 @@ function addItem(className, count, imgPath){
         item.style.position = "absolute";
         item.style.top = `${y}px`;
         item.style.left = `${x}px`;
-        field.appendChild(item);
+        gameField.appendChild(item);
     }
 }
 
@@ -114,6 +155,8 @@ function startGameTimer(){
     timer = setInterval(()=>{
         if(remainTimeSec <= 0){
             clearInterval(timer);
+            finishGame("YOU LOST!");
+            playSound(alertSound);
             return;
         }
         updateTimerText(--remainTimeSec);
@@ -124,4 +167,8 @@ function updateTimerText(time){
     const min = Math.floor(time / 60);
     const sec = time % 60;
     gameTimer.innerText = `${min} : ${sec}`;
+}
+
+function updateScoreText(score){
+    gameScore.innerText = CARROT_COUNT - score;
 }

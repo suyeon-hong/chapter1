@@ -1,3 +1,6 @@
+'use strict';
+import Popup from './popup.js';
+
 const CARROT_SIZE = 80;
 const CARROT_COUNT = 5;
 const BUG_COUNT = 5;
@@ -9,28 +12,25 @@ const gameScore = document.querySelector(".game__score");
 const gameField = document.querySelector(".game__field");
 const fieldRect = gameField.getBoundingClientRect();
 
-const popup = document.querySelector(".popup");
-const popupMessage = document.querySelector(".popup__message");
-const refreshBtn = document.querySelector(".popup__refresh");
-
 const bgSound = new Audio('./sound/bg.mp3');
 const bugSound = new Audio('./sound/bug_pull.mp3');
 const carrotSound = new Audio('./sound/carrot_pull.mp3');
-const windSound = new Audio('./sound/game_win.mp3');
+const winSound = new Audio('./sound/game_win.mp3');
 const alertSound = new Audio('./sound/alert.wav');
 
 let started = false;
 let timer;
 let score;
 
+const gameFinishBanner = new Popup();
+
+gameFinishBanner.setClickListener(()=>{
+    gameBtn.style.visibility = "visible";
+    startGame();
+})
+
 gameField.addEventListener("click", e => onGameField(e))
 
-refreshBtn.addEventListener("click", ()=>{
-    gameBtn.style.visibility = "visible";
-    started = true;
-    startGame();
-    hidePopup();
-})
 
 gameBtn.addEventListener("click", ()=>{
     if(started){
@@ -48,13 +48,11 @@ function onGameField(e){
         score++;
         updateScoreText(score);
         if(score == CARROT_COUNT){
-            finishGame("YOU WIN!");
-            playSound(windSound);
+            finishGame(true);
         }
     }else if(e.target.matches(".bug")){
-        finishGame("YOU LOST!")
         playSound(bugSound);
-        playSound(alertSound);
+        finishGame(false)
     }
 }
 
@@ -71,7 +69,7 @@ function stopGame(){
     started = false;
     clearInterval(timer);
     hideGameButton();
-    showPopup("REPLAY❓");
+    gameFinishBanner.showWithText("REPLAY❓");
     stopSound(bgSound);
 }
 
@@ -84,21 +82,17 @@ function startGame(){
     playSound(bgSound);
 }
 
-function finishGame(text){
+function finishGame(win){
     started = false;
+    if(win){
+        playSound(winSound);
+    }else{
+        playSound(alertSound);
+    }
     clearInterval(timer);
     hideGameButton();
-    showPopup(text);
+    gameFinishBanner.showWithText(win ? "YOU WIN🎉" : "YOU LOST😥");
     stopSound(bgSound);
-}
-
-function hidePopup(){
-    popup.classList.add("popup__hide");
-}
-
-function showPopup(text){
-    popupMessage.innerText = text;
-    popup.classList.remove("popup__hide");
 }
 
 function showStopButton(){
@@ -155,8 +149,7 @@ function startGameTimer(){
     timer = setInterval(()=>{
         if(remainTimeSec <= 0){
             clearInterval(timer);
-            finishGame("YOU LOST!");
-            playSound(alertSound);
+            finishGame(false);
             return;
         }
         updateTimerText(--remainTimeSec);

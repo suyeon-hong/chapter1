@@ -19,7 +19,7 @@ export default class Field{
     setClickListener(onItemClick){
         this.onItemClick = onItemClick;
     }
-    onClick(e){
+    onClick = (e) => {
         if(e.target.matches(".carrot")){
             e.target.remove();
             sound.playCarrot();

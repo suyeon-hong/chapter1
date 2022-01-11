@@ -2,7 +2,19 @@
 import Field from './field.js';
 import * as sound from './sound.js';
 
-export default class GameBuilder{
+export class Reason{
+    cancel(){
+        return 'cancel';
+    }
+    win(){
+        return 'win';
+    }
+    lost(){
+        return 'lost';
+    }
+}
+
+export class GameBuilder{
     withGameDuration(duration){
         this.gameDuration = duration;
         return this;
@@ -83,7 +95,7 @@ class Game{
     stop(){
         this.started = false;
         this._hideGameButton();
-        this.onGameStop && this.onGameStop('cancel');
+        this.onGameStop && this.onGameStop(Reason.cancel);
         clearInterval(this.timer);
         sound.stopBackground();
     }
@@ -95,7 +107,7 @@ class Game{
         }else{
             sound.playAlert();
         }
-        this.onGameStop && this.onGameStop(win ? 'win' : "lost");
+        this.onGameStop && this.onGameStop(win ? Reason.win : Reason.lost);
         this._hideGameButton();
         clearInterval(this.timer);
         sound.stopBackground();

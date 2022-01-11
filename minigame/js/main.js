@@ -1,5 +1,6 @@
 'use strict';
 import Popup from './popup.js';
+import * as sound from './sound.js';
 import { GameBuilder, Reason } from './Game.js';
 
 const gameFinishBanner = new Popup();
@@ -17,11 +18,16 @@ game.setGameStopListener(reason => {
             break;
         case Reason.win:
             message = "YOU WIN🎉";
+            sound.playWin();
             break;
         case Reason.lost :
             message = "YOU LOST😥";
+            sound.playAlert();
             break;
+        default:
+            throw new Error('not valid reason');
     }
+    sound.stopBackground();
     gameFinishBanner.showWithText(message);
 })
 
